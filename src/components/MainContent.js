@@ -1,14 +1,21 @@
 import React, { useState } from 'react';
-import { Box, Button, TextField, Typography } from '@mui/material';
+import { Box, Button, TextField } from '@mui/material';
 import CourseDetails from './CourseDetails';
+import Header from './Header';
+import LoadingModal from './LoadingModal';
 
 const MainContent = () => {
   const [courseTitle, setCourseTitle] = useState('');
   const [courseDescription, setCourseDescription] = useState('');
   const [showCourseDetails, setShowCourseDetails] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleFinish = () => {
-    setShowCourseDetails(true);
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      setShowCourseDetails(true);
+    }, 3000); // Show modal for 3 seconds
   };
 
   const handleReset = () => {
@@ -19,6 +26,8 @@ const MainContent = () => {
 
   return (
     <Box style={{ padding: 20 }}>
+      <Header />
+      <LoadingModal open={loading} />
       {!showCourseDetails ? (
         <Box component="form" noValidate autoComplete="off" style={{ marginTop: 20 }}>
           <TextField
