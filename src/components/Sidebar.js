@@ -1,78 +1,67 @@
 import React from 'react';
-import { Drawer, List, ListItem, ListItemIcon, ListItemText, Avatar, Typography, Box, CircularProgress } from '@mui/material';
-import { Home, Dashboard, Folder, Task, BarChart, People, Settings, Support } from '@mui/icons-material';
+import { List, ListItem, ListItemIcon, ListItemText, Avatar, Divider, Collapse } from '@mui/material';
+import { ExpandLess, ExpandMore, Home, Book, Drafts, AddBox, Assignment } from '@mui/icons-material';
+import { Link } from 'react-router-dom';
+import { styled } from '@mui/system';
+
+const SidebarContainer = styled('div')({
+  width: 250,
+  padding: 20,
+  backgroundColor: '#e3f2fd', // Light blue background
+  height: '100vh',
+});
+
+const Header = styled('div')({
+  textAlign: 'center',
+  marginBottom: 20,
+  backgroundColor: '#90caf9', // Blue background for header
+  padding: 10,
+  borderRadius: 10,
+});
+
+const StyledAvatar = styled(Avatar)({
+  width: 60,
+  height: 60,
+  marginBottom: 10,
+});
+
+const listItemStyles = {
+  color: '#0d47a1', // Dark blue text color
+};
+
+const nestedListItemStyles = {
+  paddingLeft: 32, // Corresponding to theme.spacing(4)
+  color: '#0d47a1', // Dark blue text color
+};
 
 const Sidebar = () => {
-  const drawerWidth = 240;
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen(!open);
+  };
 
   return (
-    <Drawer
-      variant="permanent"
-      sx={{
-        width: drawerWidth,
-        flexShrink: 0,
-        [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
-      }}
-    >
-      <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-        <Box sx={{ padding: 2, display: 'flex', alignItems: 'center' }}>
-          <Typography variant="h6" noWrap>
-            Untitled UI
-          </Typography>
-        </Box>
-        <List>
-          <ListItem button>
-            <ListItemIcon><Home /></ListItemIcon>
-            <ListItemText primary="Home" />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon><Dashboard /></ListItemIcon>
-            <ListItemText primary="Dashboard" />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon><Folder /></ListItemIcon>
-            <ListItemText primary="Projects" />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon><Task /></ListItemIcon>
-            <ListItemText primary="Tasks" />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon><BarChart /></ListItemIcon>
-            <ListItemText primary="Reporting" />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon><People /></ListItemIcon>
-            <ListItemText primary="Users" />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon><Settings /></ListItemIcon>
-            <ListItemText primary="Settings" />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon><Support /></ListItemIcon>
-            <ListItemText primary="Support" />
-          </ListItem>
-        </List>
-        <Box sx={{ flexGrow: 1 }} />
-        <Box sx={{ padding: 2 }}>
-          <CircularProgress variant="determinate" value={80} />
-          <Typography variant="caption" display="block">
-            Used space
-          </Typography>
-          <Typography variant="body2">
-            Your team has used 80% of your available space. Need more?
-          </Typography>
-        </Box>
-        <Box sx={{ padding: 2, display: 'flex', alignItems: 'center' }}>
-          <Avatar alt="Olivia Rhye" src="https://via.placeholder.com/40" />
-          <Box sx={{ marginLeft: 2 }}>
-            <Typography variant="body1">Olivia Rhye</Typography>
-            <Typography variant="body2">olivia@untitledui.com</Typography>
-          </Box>
-        </Box>
-      </Box>
-    </Drawer>
+    <SidebarContainer>
+      <Header>
+        <StyledAvatar  style={{alignItems:"center",alignSelf:"center", marginLeft:"85px",marginTop:"20px"}}alt="Alex Hey" src="https://w7.pngwing.com/pngs/306/138/png-transparent-smiling-man-wearing-black-notched-lapel-blazer-businessman-image-file-formats-people-necktie.png" />
+        <h3>Alex Hey</h3>
+      </Header>
+      <List>
+        <ListItem button component={Link} to="/" sx={listItemStyles}>
+          <ListItemIcon>
+            <Home style={{ color: '#0d47a1' }} />
+          </ListItemIcon>
+          <ListItemText primary="Create Courses" />
+        </ListItem>
+     
+       
+      </List>
+      <Divider />
+      <List>
+     
+      </List>
+    </SidebarContainer>
   );
 };
 

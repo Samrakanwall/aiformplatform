@@ -1,31 +1,24 @@
 import React from 'react';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
-import Content from './components/Content';
+import Header from './components/Header';
+import MainContent from './components/MainContent';
 
-const theme = createTheme({
-  palette: {
-    mode: 'light',
-    primary: {
-      main: '#6200ea',
-    },
-    secondary: {
-      main: '#03dac6',
-    },
-  },
-});
-
-const App = () => {
+function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
+    <Router>
       <div style={{ display: 'flex' }}>
         <Sidebar />
-        <Content />
+        <div style={{ flexGrow: 1 }}>
+          <Header />
+          <Routes>
+            <Route path="/create" element={<MainContent />} />
+            <Route path="/" element={<Navigate to="/create" />} />
+          </Routes>
+        </div>
       </div>
-    </ThemeProvider>
+    </Router>
   );
-};
+}
 
 export default App;
