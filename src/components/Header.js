@@ -1,15 +1,18 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, InputBase } from '@mui/material';
-import { Search as SearchIcon } from '@mui/icons-material';
+import { Link } from 'react-router-dom';
+import { AppBar, Toolbar, Typography, Button } from '@mui/material';
 
 const Header = () => {
   return (
-    <AppBar position="static" style={{ backgroundColor: '#000' }}>
+    <AppBar position="static">
       <Toolbar>
-        <Typography variant="h6" style={{ flexGrow: 1  , alignContent: 'center', alignSelf:"center",justifyContent:"center", marginLeft:"400px"}}>
-          AI Development And Learning Platform
+        <Typography variant="h6" style={{ flexGrow: 1 }}>
+         AI LEARNING AND DEVELOPMENT PLATFORM
         </Typography>
       
+        <Button color="inherit" component={Link} to="/login">
+          Login
+        </Button>
       </Toolbar>
     </AppBar>
   );

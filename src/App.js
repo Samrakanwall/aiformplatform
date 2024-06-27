@@ -1,24 +1,34 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Sidebar from './components/Sidebar';
-import Header from './components/Header';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import MainContent from './components/MainContent';
+import WeekDetails from './components/WeekDetails';
 
-function App() {
+import Login from './components/Login';
+import Profile from './components/Profile';
+import Header from './components/Header';
+import DetailScreen from './components/DetailScreen';
+
+const App = () => {
+  const [courseData, setCourseData] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const setCourseDetails = (data) => {
+    setCourseData(data);
+  };
+
   return (
     <Router>
-      <div style={{ display: 'flex' }}>
-        <Sidebar />
-        <div style={{ flexGrow: 1 }}>
-          <Header />
-          <Routes>
-            <Route path="/create" element={<MainContent />} />
-            <Route path="/" element={<Navigate to="/create" />} />
-          </Routes>
-        </div>
-      </div>
+      {isAuthenticated && <Header />}
+      <Routes>
+        <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
+        
+        <Route path="/profile" element={isAuthenticated ? <Profile /> : <Navigate to="/login" />} />
+        <Route path="/" element={isAuthenticated ? <MainContent setCourseData={setCourseDetails} /> : <Navigate to="/login" />} />
+        <Route path="/week/:week" element={isAuthenticated ? <WeekDetails courseData={courseData} /> : <Navigate to="/login" />} />
+        <Route path="/details" element={isAuthenticated ? <DetailScreen /> : <Navigate to="/login" />} />
+      </Routes>
     </Router>
   );
-}
+};
 
 export default App;

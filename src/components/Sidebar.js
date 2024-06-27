@@ -44,7 +44,7 @@ const Sidebar = () => {
   return (
     <SidebarContainer>
       <Header>
-        <StyledAvatar  style={{alignItems:"center",alignSelf:"center", marginLeft:"85px",marginTop:"20px"}}alt="Alex Hey" src="https://w7.pngwing.com/pngs/306/138/png-transparent-smiling-man-wearing-black-notched-lapel-blazer-businessman-image-file-formats-people-necktie.png" />
+        <StyledAvatar  style={{alignItems:"center",alignSelf:"center", marginLeft:"45px",marginTop:"20px"}}alt="Alex Hey" src="https://w7.pngwing.com/pngs/306/138/png-transparent-smiling-man-wearing-black-notched-lapel-blazer-businessman-image-file-formats-people-necktie.png" />
         <h3>Alex Hey</h3>
       </Header>
       <List>
