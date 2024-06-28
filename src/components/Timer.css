@@ -1,0 +1,24 @@
+.timer-container {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    margin: 5px 0;
+  }
+  
+  .timer-box {
+    background-color: rgb(205, 135, 235);
+    padding: 5px 5px;
+    border-radius: 5px;
+  }
+  
+  .timer-text {
+    font-size: 2rem;
+    color: white;
+    font-family: 'Digital-7 Mono', sans-serif;
+  }
+  
+  @font-face {
+    font-family: 'Digital-7 Mono';
+    src: url('https://fonts.cdnfonts.com/s/23673/Digital7Mono.woff') format('woff');
+  }
+  

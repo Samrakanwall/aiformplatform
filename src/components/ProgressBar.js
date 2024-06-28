@@ -1,38 +1,19 @@
 import React from 'react';
-import { Box, Typography, LinearProgress } from '@mui/material';
-import { styled } from '@mui/system';
+import './ProgressBar.css';
 
-const ProgressContainer = styled(Box)(({ theme }) => ({
-  marginTop: theme.spacing(2),
-  marginBottom: theme.spacing(2),
-}));
-
-const ProgressLabel = styled(Typography)(({ theme }) => ({
-  fontWeight: 'bold',
-  marginRight: theme.spacing(1),
-}));
-
-const ProgressBar = ({ label, value, color }) => {
+const ProgressBar = ({ heading, percentage, color }) => {
   return (
-    <ProgressContainer>
-      <Box display="flex" alignItems="center">
-        <ProgressLabel>{label}</ProgressLabel>
-        <Typography variant="body2" color="textSecondary">{`${value}%`}</Typography>
-      </Box>
-      <LinearProgress
-        variant="determinate"
-        value={value}
-        sx={{
-          height: 10,
-          borderRadius: 5,
-          backgroundColor: '#e0e0e0',
-          '& .MuiLinearProgress-bar': {
-            borderRadius: 5,
-            backgroundColor: color,
-          },
-        }}
-      />
-    </ProgressContainer>
+    <div className="progress-bar-container">
+      <label>{`${heading} - ${percentage}%`}</label>
+      <div className="progress-bar">
+        <div
+          className="progress-fill"
+          style={{ width: `${percentage}%`, backgroundColor: color }}
+        >
+          <div className="progress-thumb" style={{ backgroundColor: color }}></div>
+        </div>
+      </div>
+    </div>
   );
 };
 

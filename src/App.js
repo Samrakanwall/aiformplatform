@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import MainContent from './components/MainContent';
 import WeekDetails from './components/WeekDetails';
-
+import ProgressScreen from './components/ProgressScreen';
 import Login from './components/Login';
 import Profile from './components/Profile';
 import Header from './components/Header';
@@ -26,6 +26,8 @@ const App = () => {
         <Route path="/" element={isAuthenticated ? <MainContent setCourseData={setCourseDetails} /> : <Navigate to="/login" />} />
         <Route path="/week/:week" element={isAuthenticated ? <WeekDetails courseData={courseData} /> : <Navigate to="/login" />} />
         <Route path="/details" element={isAuthenticated ? <DetailScreen /> : <Navigate to="/login" />} />
+        {/* <Route path="/progress" component={ProgressScreen} /> */}
+        <Route path="/progress" element={isAuthenticated ? <ProgressScreen /> : <Navigate to="/login" />} />
       </Routes>
     </Router>
   );

@@ -1,0 +1,62 @@
+.course-outline {
+    width: 100%;
+  }
+  
+  .week-section {
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+    padding: 10px 0;
+  }
+  
+  .week-title {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+  
+  .topics-list {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  .topic-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    background-color: #f5f5f5;
+    transition: background-color 0.3s;
+  }
+  
+  .topic-item:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .topic-text {
+    flex-grow: 1;
+  }
+  
+  .topic-icon {
+    margin-left: 10px;
+  }
+  
+  .add-topic-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+  }
+  
+  .add-topic-btn:hover {
+    background-color: #0056b3;
+  }
+  

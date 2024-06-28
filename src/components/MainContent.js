@@ -4,7 +4,7 @@ import CourseDetails from './CourseDetails';
 import LoadingModal from './LoadingModal';
 import Sidebar from './Sidebar';
 import { useNavigate } from 'react-router-dom';
-
+import axios from 'axios';
 
 const MainContent = () => {
   const [courseTitle, setCourseTitle] = useState('');
@@ -12,15 +12,19 @@ const MainContent = () => {
   const [showCourseDetails, setShowCourseDetails] = useState(false);
   const [loading, setLoading] = useState(false);
   const [courseData, setCourseData] = useState(null);
+  const email = localStorage.getItem('userEmail');
  
 
   const navigate = useNavigate();
 
   const userProfile = {
-    name: "Laraib Siddiqui",
+    name: "Samra Kanwal",
     skills: ["intermediate programming", "data visualization", "statistical analysis"],
     career_goal: "To enhance my skills in machine learning and AI using Python."
   };
+
+
+
 
   const handleFinish = () => {
     setLoading(true);
@@ -30,7 +34,7 @@ const MainContent = () => {
       course_details: courseTitle
     };
 
-    fetch('http://192.168.0.114:5002/generate_outline', {
+    fetch('  http://192.168.0.116:5002/generate_outline', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -39,10 +43,13 @@ const MainContent = () => {
     })
       .then(response => response.json())
       .then(data => {
-        console.log('Success:', data);
+        console.log('Success:', data);    
         setCourseData(data);
+     
+       
         setLoading(false);
         setShowCourseDetails(true);
+        
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -50,17 +57,19 @@ const MainContent = () => {
       });
   };
 
-
+  
   const handleReset = () => {
+  
     setLoading(true);
     setTimeout(() => {
+       
       setLoading(false);
       setShowCourseDetails(false);
     setCourseTitle('');
     setCourseDescription('');
     setCourseData(null);
     navigate('/details');
-    }, 2000); // 2 seconds delay
+    }, 1000); // 2 seconds delay
   };
  
 

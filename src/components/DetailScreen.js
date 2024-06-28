@@ -1,68 +1,108 @@
-import React, { useEffect, useState } from 'react';
-import { Box, Typography, LinearProgress } from '@mui/material';
-import Sidebar from './Sidebar';
-import ProgressBar from './ProgressBar';
-import { useNavigate } from 'react-router-dom';
-import './DetailScreen.css'; // Import the CSS file for styling
+import React, { useState } from 'react';
+import CourseOutline from './CourseOutline';
+import TopicDetail from './TopicDetail';
+import LoadingModal from './LoadingModal';
 
-const DetailScreen = () => {
-  const [timeLeft, setTimeLeft] = useState(10); // 10 seconds for demo
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (timeLeft > 0) {
-      const timerId = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
-      return () => clearTimeout(timerId);
-    } else {
-      navigate('/');
+const MainContent = () => {
+  const [loading, setLoading] = useState(false);
+  const [courseData] = useState({
+    "Course Title": "Advanced Python Programming for Machine Learning and AI",
+    "Course Outline": {
+      "Week 1": {
+        "Title": "",
+        "Topics": [
+          "- Introduction to Advanced Python Concepts",
+          "- Object-Oriented Programming in Python",
+          "- Decorators and Generators",
+          "- Application of Advanced Python Concepts in Data Analysis"
+        ]
+      },
+      "Week 2": {
+        "Title": "",
+        "Topics": [
+          "- Python Libraries for Data Manipulation and Analysis",
+          "- NumPy and Pandas for Data handling",
+          "- Data Visualization in Python",
+          "- Matplotlib and Seaborn"
+        ]
+      },
+      "Week 3": {
+        "Title": "",
+        "Topics": [
+          "- Introduction to Machine Learning with Python",
+          "- Scikit-learn library and its functionalities",
+          "- Implementing Regression Algorithms in Python"
+        ]
+      },
+      "Week 4": {
+        "Title": "",
+        "Topics": [
+          "- Implementing Classification Algorithms in Python",
+          "- Model Evaluation and Cross-Validation Techniques in Machine Learning"
+        ]
+      },
+      "Week 5": {
+        "Title": "",
+        "Topics": [
+          "- Introduction to Artificial Intelligence",
+          "- Building Neural Networks using Python and TensorFlow"
+        ]
+      },
+      "Week 6": {
+        "Title": "",
+        "Topics": [
+          "- Advanced Topics in AI: Natural Language Processing and Computer Vision",
+          "- Real-world Applications and Case Studies in Machine Learning and AI"
+        ]
+      },
+      "Week 7": {
+        "Title": "",
+        "Topics": [
+          "- Final Project: Applying Machine Learning and AI techniques to a real-world dataset using Python",
+          "- Presentation of Final Project and Feedback Session",
+          "This course is designed to build upon your existing programming skills and familiarity with data analysis and visualization. It will equip you with the necessary tools and knowledge to excel in the field of Machine Learning and Artificial Intelligence using Python."
+        ]
+      }
     }
-  }, [timeLeft, navigate]);
+  });
 
-  const formatTime = (time) => {
-    const minutes = Math.floor(time / 60);
-    const seconds = time % 60;
-    return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+  const [selectedTopic, setSelectedTopic] = useState(null);
+
+  const handleTopicClick = async (topic) => {
+    setLoading(true);
+    try {
+      const response = await fetch('http://192.168.0.116:5002/generate-topic-details', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ topic })
+      });
+      const data = await response.json();
+      console.log('selecttopicdetails===>:', data);  
+      setSelectedTopic(data);  
+        setLoading(false);
+     
+    } catch (error) {
+      console.error('Error fetching topic details:', error);
+    }
   };
 
   return (
-    <Box display="flex">
-      <Sidebar />
-      <Box style={{ padding: 20, marginLeft: 250, flexGrow: 1 }}>
-        <Typography variant="h4" gutterBottom>
-          Key Marketing Challenges for E-Learning Courses
-        </Typography>
-        <Typography variant="body1" paragraph>
-          While e-learning offers many advantages over traditional classroom-based learning, it also presents a unique set of marketing challenges. Here are some of the key challenges that e-learning course designers and marketers need to overcome:
-        </Typography>
-        <Typography variant="body1" paragraph>
-          <strong>Competition:</strong> With the growing popularity of e-learning, the market is becoming increasingly crowded. This means that course designers need to find ways to differentiate their courses and stand out from the competition.
-        </Typography>
-        <Typography variant="body1" paragraph>
-          <strong>Perceived value:</strong> Many learners still believe that traditional classroom-based learning offers more value than e-learning, despite the numerous benefits of e-learning. Course designers need to find ways to communicate the value of e-learning and convince learners that it is a worthwhile investment.
-        </Typography>
-        <Typography variant="body1" paragraph>
-          <strong>Technical issues:</strong> E-learning courses often require learners to have access to specific software or hardware. This can be a barrier for some learners, particularly those who are not tech-savvy. Course designers need to ensure that their courses are accessible to as many learners as possible.
-        </Typography>
-        <Typography variant="body1" paragraph>
-          <strong>Retention:</strong> E-learning courses can be more challenging for learners to complete than traditional classroom-based courses. Course designers need to find ways to keep learners engaged and motivated throughout the course to ensure that they complete it successfully.
-        </Typography>
-        <Typography variant="body1" paragraph>
-          <strong>Marketing channels:</strong> E-learning courses are marketed differently than traditional classroom-based courses. Course designers need to find the most effective marketing channels for reaching their target audience.
-        </Typography>
-        <Box mt={4}>
-          <ProgressBar label="HTML / HTML5" value={60} color="#2196f3" />
-          <ProgressBar label="ASP.Net" value={40} color="#4caf50" />
-          <ProgressBar label="Java" value={20} color="#03a9f4" />
-          <ProgressBar label="JavaScript / jQuery" value={60} color="#ff9800" />
-        </Box>
-        <Box mt={4} textAlign="center" className="timer-container">
-          <Typography variant="h4" className="timer">
-            {formatTime(timeLeft)}
-          </Typography>
-        </Box>
-      </Box>
-    </Box>
+    <div style={{ display: 'flex' }}>
+      <div style={{ width: '25%', padding: '10px' }}>
+      <LoadingModal open={loading} />
+        <CourseOutline courseData={courseData} onTopicClick={handleTopicClick} />
+      </div>
+      <div style={{ width: '75%', padding: '10px' }}>
+        {selectedTopic ? (
+          <TopicDetail detail={selectedTopic} />
+        ) : (
+          <p>Select a topic to see details</p>
+        )}
+      </div>
+    </div>
   );
 };
 
-export default DetailScreen;
+export default MainContent;

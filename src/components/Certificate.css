@@ -1,0 +1,40 @@
+.certificate-container {
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    border: 2px solid #000;
+    border-radius: 10px;
+    text-align: center;
+    background-color: #fff;
+  }
+  
+  .certificate-container h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .certificate-container h2 {
+    font-size: 20px;
+    margin-bottom: 5px;
+  }
+  
+  .certificate-container h3 {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  
+  .certificate-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .certificate-date {
+    text-decoration: underline;
+  }
+  
+  .certificate-signature img {
+    height: 40px;
+  }
+  
